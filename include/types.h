@@ -164,10 +164,10 @@ typedef int128_t s128;
 #else
   #if defined(__linux__) || !defined(__ANDROID__)
     #define SR(s) (srandom(s))
-    #define R(x) (random() % (x))
+    #define AFL_RAND(x) (random() % (x))
   #else
     #define SR(s) ((void)s)
-    #define R(x) (arc4random_uniform(x))
+    #define AFL_RAND(x) (arc4random_uniform(x))
   #endif
 #endif                                                    /* ^AFL_LLVM_PASS */
 

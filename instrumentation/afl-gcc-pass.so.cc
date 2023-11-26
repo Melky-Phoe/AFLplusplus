@@ -73,13 +73,13 @@
    and optionally inserting one of the instrumentation sequences below
    after its labels, to indicate execution entered the block.
 
-   A block should be skipped if R(100) (from ../types.h) is >= the
+   A block should be skipped if AFL_RAND(100) (from ../types.h) is >= the
    global instrumentation ratio.
 
    A block may be skipped for other reasons, such as if all of its
    predecessors have a single successor.
 
-   For an instrumented block, a R(MAP_SIZE) say <N> should be
+   For an instrumented block, a AFL_RAND(MAP_SIZE) say <N> should be
    generated to be used as its location number.  Let <C> be a compiler
    constant built out of it.
 
@@ -199,7 +199,7 @@ struct afl_pass : afl_base_pass {
       if (!instrument_block_p(bb)) continue;
 
       /* Generate the block identifier.  */
-      unsigned bid = R(MAP_SIZE);
+      unsigned bid = AFL_RAND(MAP_SIZE);
       tree     bidt = build_int_cst(sizetype, bid);
 
       gimple_seq seq = NULL;
@@ -370,7 +370,7 @@ struct afl_pass : afl_base_pass {
      predecessors.  */
   inline bool instrument_block_p(basic_block bb) {
 
-    if (R(100) >= (long int)inst_ratio) return false;
+    if (AFL_RAND(100) >= (long int)inst_ratio) return false;
 
     edge          e;
     edge_iterator ei;

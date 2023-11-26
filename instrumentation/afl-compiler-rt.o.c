@@ -1814,7 +1814,7 @@ void __sanitizer_cov_trace_pc_guard_init(uint32_t *start, uint32_t *stop) {
       while (start < stop) {
 
         if (!ignore_dso_after_fs &&
-            (likely(inst_ratio == 100) || R(100) < inst_ratio)) {
+            (likely(inst_ratio == 100) || AFL_RAND(100) < inst_ratio)) {
 
           *(start++) = offset;
 
@@ -1844,7 +1844,7 @@ void __sanitizer_cov_trace_pc_guard_init(uint32_t *start, uint32_t *stop) {
 
   while (start < stop) {
 
-    if (likely(inst_ratio == 100) || R(100) < inst_ratio) {
+    if (likely(inst_ratio == 100) || AFL_RAND(100) < inst_ratio) {
 
       *(start++) = ++__afl_final_loc;
 
